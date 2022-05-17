@@ -9,7 +9,7 @@ def read(fname):
 
 setup(
     name='question_generation',
-    version='1.0.1',
+    version='1.0.0',
     description='Question Generation using Transformers',
     long_description=read("README.md"),
     python_requires='>=2.7',

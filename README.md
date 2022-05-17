@@ -131,7 +131,9 @@ The [nlg-eval](https://github.com/Maluuba/nlg-eval) package is used for calculat
 
 ## Requirements
 ```
-python -m pip install git+https://github.com/patil-suraj/question_generation.git
+transformers==3.0.0
+nltk
+nlp==0.2.0 # only if you want to fine-tune.
 ```
 
 after installing `nltk` do
@@ -152,7 +154,7 @@ The pipeline is divided into 3 tasks
 #### Question Generation
 
 ```python3
-from question_generation import pipeline
+from pipelines import pipeline
 
 nlp = pipeline("question-generation")
 nlp("42 is the answer to life, the universe and everything.")
@@ -222,7 +224,7 @@ The datasets will be saved in `data/` directory. You should provide filenames us
 
 **process data for single task question generation with highlight_qg_format**
 ```bash
-python -m question_generation.prepare_data.py \
+python prepare_data.py \
     --task qg \
     --model_type t5 \
     --dataset_path data/squad_multitask/ \
@@ -238,7 +240,7 @@ python -m question_generation.prepare_data.py \
 `valid_for_qg_only` argument is used to decide if the validation set should only contain data for qg task. For my multi-task experiments I used validation data with only qg task so that the eval loss curve can be easly compared with other single task models
 
 ```bash
-python -m question_generation.prepare_data.py \
+python prepare_data.py \
     --task multi \
     --valid_for_qg_only \ 
     --model_type t5 \
@@ -252,7 +254,7 @@ python -m question_generation.prepare_data.py \
 
 **process dataset for end-to-end question generation**
 ```bash
-python -m question_generation.prepare_data.py \
+python prepare_data.py \
     --task e2e_qg \
     --valid_for_qg_only \ 
     --model_type t5 \
@@ -269,7 +271,7 @@ Use the `run_qg.py` script to  start training. It uses transformers `Trainer` cl
 
 
 ```bash
-python -m question_generation.run_qg.py \
+python run_qg.py \
     --model_name_or_path t5-small \
     --model_type t5 \
     --tokenizer_name_or_path t5_qg_tokenizer \
@@ -291,7 +293,7 @@ python -m question_generation.run_qg.py \
 or if you want to train it from script or notebook then
 
 ```python3
-from question_generation import run_qg
+from run_qg import run_qg
 
 args_dict = {
     "model_name_or_path": "t5-small",
@@ -321,7 +323,7 @@ run_qg(args_dict)
 Use the `eval.py` script for evaluting the model. 
 
 ```bash
-python -m question_generation.eval.py \
+python eval.py \
     --model_name_or_path t5-base-qg-hl \
     --valid_file_path valid_data_qg_hl_t5.pt \
     --model_type t5 \
@@ -342,6 +344,7 @@ nlg-eval --hypothesis=hypothesis_t5-base-qg-hl.txt --references=data/references.
 
 1. A simple Trivia Quiz on topics of your choice - <br/>
    [Medium article](https://medium.com/@nvarshney97/using-the-latest-nlp-techniques-for-fun-98f31ce7b556) and its [Colab Notebook](https://colab.research.google.com/gist/nrjvarshney/39ed6c80e2fe293b9e7eca5bc3a45b7d/quiz.ipynb)
+2. [Autocards, Accelerating learning through machine-generated flashcards](https://paulbricman.com/docs/tools/autocards/)
 
 ## Relevant papers
 - https://arxiv.org/abs/1906.05416
