@@ -141,7 +141,7 @@ class QGPipeline:
                 
                 try:
                     ans_start_idx = sent.index(answer_text)
-                except:
+                except Exception:
                     continue
 
                 
