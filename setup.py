@@ -12,7 +12,7 @@ setup(
     author="Suraj Patil",
     author_email="surajp815@gmail.com",
     description="Question generation is the task of automatically generating questions from a text paragraph.",
-    install_requires=["transformers==4.18.0", "nltk==3.7", "nlp>=0.2.0", "torch==1.11.0"],
+    install_requires=["transformers>=3.0.0", "nltk", "nlp>=0.2.0", "torch"],
     python_requires=">=3.6",
     include_package_data=True,
     platforms="any",
